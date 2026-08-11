@@ -11,6 +11,11 @@ public class Contato {
         this.email = email;
     }
 
+    public Contato(String nome, String telefone) {
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -37,6 +42,10 @@ public class Contato {
 
     @Override
     public String toString() {
+        if (email == null){
+            return "\nNome: " + nome +
+                    "\nTelefone: " + telefone;
+        }
         return "\nNome: " + nome +
                 "\nTelefone: " + telefone+
                 "\nEmail: " + email;

@@ -31,15 +31,33 @@ public class Agenda {
 
     }
 
+    public void adicionar(Contato[] lote){
+        for (Contato contato : lote) {
+            adicionar(contato);
+        }
+    }
+
     public void remover(Contato contato){
         for (int i = 0; i < contatos.length; i++) {
             if (contatos[i] != null && (contato.getNome().equals(contatos[i].getNome()) || contato.getTelefone().equals(contatos[i].getTelefone()))) {
-                contatos[i] = null;
-                tamanho--;
-                System.out.println("Contato excluído");
-                return;
+                remover(i);
             }
         }
+    }
+
+    public void remover(int indice){
+        if (indice < 0 || indice >= tamanho){
+            System.out.println("Indice inválido");
+            return;
+        }
+
+        for (int i = 0; i < tamanho; i++) {
+            contatos[i] = contatos[i + 1];
+        }
+
+        contatos[tamanho - 1] = null;
+        System.out.println("Contato excluído");
+        tamanho--;
     }
 
     public void buscar(String atributo){
@@ -91,9 +109,7 @@ public class Agenda {
     public void listar(){
         System.out.println("=== LISTA DE CONTATOS ===");
         for (Contato contato : contatos) {
-            if (contato == null){
-                System.out.println("Espaço vazio");
-            }else{
+            if (contato != null){
                 System.out.println(contato);
             }
         }
