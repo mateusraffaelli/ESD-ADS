@@ -1,15 +1,18 @@
 package ads.esd;
 
-public class VetorDinamico {
-    private String[] elementos;
+public class Vetor<T> {
+
+    private T[] elementos;
     private int tamanho;
 
-    public VetorDinamico(int quantidade) {
-        elementos = new String[quantidade];
-        this.tamanho = 0;
+    @SuppressWarnings("unchecked")
+    public Vetor(int quantidade){
+        elementos = (T[])  new Object[quantidade];
+        tamanho = 0;
+
     }
 
-    public void inserir(String elemento) {
+    public void inserir(T elemento) {
         if (tamanho == elementos.length) {
             expandir();
         }
@@ -17,17 +20,19 @@ public class VetorDinamico {
         tamanho++;
     }
 
+    @SuppressWarnings("unchecked")
     private void expandir() {
-        String[] novo = new String[elementos.length * 2];
+        T[] novo = (T[]) new Object[elementos.length * 2];
         for (int i = 0; i < elementos.length; i++) {
             novo[i] = elementos[i];
         }
         elementos = novo;
     }
 
+    @SuppressWarnings("unchecked")
     private void reduzir() {
         if (tamanho <= elementos.length/4) {
-            String[] novo = new String[elementos.length/2];
+            T[] novo = (T[]) new Object[elementos.length/2];
             for (int i = 0; i < tamanho; i++) {
                 novo[i] = elementos[i];
             }
@@ -48,14 +53,20 @@ public class VetorDinamico {
         reduzir();
     }
 
+
+
+
     public void imprimir() {
         System.out.print("[");
-        for (int i = 0; i < elementos.length ; i++) {
+        for (int i = 0; i < tamanho ; i++) {
             System.out.print(elementos[i]);
-            if (i < elementos.length -1) {
+            if (i < tamanho -1) {
                 System.out.print(", ");
             }
         }
         System.out.println("]");
     }
+
+
+
 }
