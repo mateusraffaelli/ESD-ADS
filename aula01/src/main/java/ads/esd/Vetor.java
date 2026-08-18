@@ -67,6 +67,6 @@ public class Vetor<T> {
         System.out.println("]");
     }
 
-
-
-}
+    public int getTamanho() {
+    return tamanho;
+}}

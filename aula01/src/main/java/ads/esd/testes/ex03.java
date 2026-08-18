@@ -9,9 +9,9 @@ public class ex03 {
         vetor.inserir("B");
         vetor.inserir("C");
         vetor.inserir("F");
-        System.out.println(vetor.getTamanho());
-        vetor.removerFinal();
-        System.out.println(vetor.getTamanho());
+//        System.out.println(vetor.getTamanho());
+//        vetor.removerFinal();
+//        System.out.println(vetor.getTamanho());
 
         vetor.imprimir();
     }
