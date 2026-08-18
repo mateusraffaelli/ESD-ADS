@@ -5,68 +5,57 @@ import java.util.Scanner;
 
 public class Agenda {
     Scanner scanner = new Scanner(System.in);
-    private Contato contatos[];
-    private int tamanho;
+    private Vetor<Contato> contatos;
+
 
     public Agenda(int tamanhoVetor) {
-        this.contatos = new Contato[tamanhoVetor];
-        this.tamanho = 0;
+        this.contatos = new Vetor(tamanhoVetor);
     }
 
-    public void adicionar(Contato contato){
-        if (tamanho >= contatos.length) {
-            System.out.println("Agenda cheia!");
-            return;
-        }
-
-        for (int i = 0; i < tamanho; i++) {
-            if (contato.getNome().equals(contatos[i].getNome()) || contato.getTelefone().equals(contatos[i].getTelefone())){
+    public void adicionarContato(Contato contato){
+        for (int i = 0; i < contatos.getTamanho(); i++) {
+            if (buscarIgual(contato.getNome()) || buscarIgual(contato.getTelefone())){
                 System.out.println("Contato já existe");
                 return;
             }
         }
 
-        contatos[tamanho] = contato;
-        tamanho++;
-
+        contatos.inserir(contato);
     }
 
-    public void adicionar(Contato[] lote){
+    public void adicionarContato(Contato[] lote){
         for (Contato contato : lote) {
-            adicionar(contato);
+            adicionarContato(contato);
         }
     }
 
-    public void remover(Contato contato){
-        for (int i = 0; i < contatos.length; i++) {
-            if (contatos[i] != null && (contato.getNome().equals(contatos[i].getNome()) || contato.getTelefone().equals(contatos[i].getTelefone()))) {
-                remover(i);
+
+    private boolean buscarIgual(String atributo){
+        for (int i = 0; i < contatos.getTamanho(); i++) {
+            if (contatos.get(i).getNome().equals(atributo) || contatos.get(i).getTelefone().equals(atributo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removerContato(Contato contato){
+        for (int i = 0; i < contatos.getTamanho(); i++) {
+            if (buscarIgual(contato.getNome()) || buscarIgual(contato.getTelefone())) {
+                contatos.remover(i);
+                System.out.println("Contato excluído");
+                return;
             }
         }
     }
 
-    public void remover(int indice){
-        if (indice < 0 || indice >= tamanho){
-            System.out.println("Indice inválido");
-            return;
-        }
-
-        for (int i = 0; i < tamanho; i++) {
-            contatos[i] = contatos[i + 1];
-        }
-
-        contatos[tamanho - 1] = null;
-        System.out.println("Contato excluído");
-        tamanho--;
-    }
-
-    public void buscar(String atributo){
+    public void buscarContato(String atributo){
         int contador = 0;
         System.out.println("Resultado busca por: " + atributo);
 
-        for (Contato contato : contatos) {
-            if (contato.getNome().startsWith(atributo) || contato.getTelefone().startsWith(atributo)) {
-                System.out.println(contato);
+        for (int i = 0; i < contatos.getTamanho(); i++) {
+            if (contatos.get(i).getNome().startsWith(atributo) || contatos.get(i).getTelefone().startsWith(atributo)) {
+                System.out.println(contatos.get(i));
                 contador++;
             }
         }
@@ -75,11 +64,11 @@ public class Agenda {
         }
     }
 
-    public void atualizar(Contato contato){
-        for (Contato c : contatos) {
-            if (contato.getNome().equals(c.getNome()) || contato.getTelefone().equals(c.getTelefone())) {
+    public void atualizarContato(Contato contato){
+        for (int i = 0; i < contatos.getTamanho(); i++) {
+            if (contato.getNome().equals(contatos.get(i).getNome()) || contato.getTelefone().equals(contatos.get(i).getTelefone())) {
                 System.out.println("Contato encontrado:");
-                System.out.println(c);
+                System.out.println(contatos.get(i));
 
                 System.out.println("Qual dado você deseja atualizar? (n | t | e)");
                 String msg = scanner.next();
@@ -87,20 +76,20 @@ public class Agenda {
                 String rsp = scanner.next();
                 switch (msg) {
                     case "n":
-                        c.setNome(rsp);
+                        contatos.get(i).setNome(rsp);
                         break;
                     case "t":
-                        c.setTelefone(rsp);
+                        contatos.get(i).setTelefone(rsp);
                         break;
                     case "e":
-                        c.setEmail(rsp);
+                        contatos.get(i).setEmail(rsp);
                         break;
                     default:
                         System.out.println("Opção inválida");
                         return;
                 }
                 System.out.println("Contato atualizado com sucesso");
-                System.out.println(c);
+                System.out.println(contatos.get(i));
                 return;
             }
         }
@@ -108,10 +97,6 @@ public class Agenda {
 
     public void listar(){
         System.out.println("=== LISTA DE CONTATOS ===");
-        for (Contato contato : contatos) {
-            if (contato != null){
-                System.out.println(contato);
-            }
-        }
+        contatos.imprimir();
     }
 }
