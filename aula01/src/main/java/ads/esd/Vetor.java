@@ -6,8 +6,8 @@ public class Vetor<T> {
     private int tamanho;
 
     @SuppressWarnings("unchecked")
-    public Vetor(int quantidade){
-        elementos = (T[])  new Object[quantidade];
+    public Vetor(int quantidade) {
+        elementos = (T[]) new Object[quantidade];
         tamanho = 0;
 
     }
@@ -31,8 +31,8 @@ public class Vetor<T> {
 
     @SuppressWarnings("unchecked")
     private void reduzir() {
-        if (tamanho <= elementos.length/4) {
-            T[] novo = (T[]) new Object[elementos.length/2];
+        if (tamanho <= elementos.length / 4) {
+            T[] novo = (T[]) new Object[elementos.length / 2];
             for (int i = 0; i < tamanho; i++) {
                 novo[i] = elementos[i];
             }
@@ -46,21 +46,19 @@ public class Vetor<T> {
             return;
         }
         for (int i = indice; i < tamanho; i++) {
-            elementos[i] = elementos[i+1];
+            elementos[i] = elementos[i + 1];
         }
-        elementos[tamanho-1] = null;
+        elementos[tamanho - 1] = null;
         tamanho--;
         reduzir();
     }
 
 
-
-
     public void imprimir() {
         System.out.print("[");
-        for (int i = 0; i < tamanho ; i++) {
+        for (int i = 0; i < tamanho; i++) {
             System.out.print(elementos[i]);
-            if (i < tamanho -1) {
+            if (i < tamanho - 1) {
                 System.out.print(", ");
             }
         }
@@ -68,5 +66,10 @@ public class Vetor<T> {
     }
 
     public int getTamanho() {
-    return tamanho;
-}}
+        return tamanho;
+    }
+
+    public T ler(int indice) {
+        return elementos[indice];
+    }
+}
