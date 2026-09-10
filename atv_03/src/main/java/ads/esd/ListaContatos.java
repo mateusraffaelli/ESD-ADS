@@ -6,6 +6,10 @@ public class ListaContatos {
     Scanner scanner = new Scanner(System.in);
     private Vetor<Contato> contatos;
 
+    public ListaContatos(int quantidade) {
+        this.contatos = new Vetor<>(quantidade);
+    }
+
     public void adicionarContato(Contato contato){
         for (int i = 0; i < contatos.getTamanho(); i++) {
             if (buscarIgual(contato.getNome()) || buscarIgual(contato.getTelefone())){
@@ -37,7 +41,6 @@ public class ListaContatos {
         for (int i = 0; i < contatos.getTamanho(); i++) {
             if (buscarIgual(contato.getNome()) || buscarIgual(contato.getTelefone())) {
                 contatos.remover(i);
-                System.out.println("Contato excluído");
                 return;
             }
         }

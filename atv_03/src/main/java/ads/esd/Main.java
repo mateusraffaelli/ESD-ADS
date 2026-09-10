@@ -1,44 +1,66 @@
 package ads.esd;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-//        Agenda agenda = new Agenda(6);
-//
-//        Contato c1 = new Contato("Ana", "(11) 98765-4321", "ana@email.com");
-//        Contato c2 = new Contato("Carlos", "(21) 91234-5678", "carlos@email.com");
-//        Contato c3 = new Contato("Mariana", "(31) 99888-7766", "mariana@email.com");
-//        Contato c4 = new Contato("João Pedro", "(41) 97777-2233", "joao.pedro@email.com");
-//        Contato c5 = new Contato("Beatriz", "(51) 93333-4455", "beatriz@email.com");
-//
-//        agenda.adicionarContato(c1);
-//        agenda.adicionarContato(c2);
-//        agenda.adicionarContato(c3);
-//        agenda.adicionarContato(c4);
-//        agenda.adicionarContato(c5);
-//
-//        Contato c6 = new Contato("Ana Laura", "(12) 98765-4321", "analaura@email.com");
-//        agenda.adicionarContato(c6);
-//
-//        agenda.removerContato(c1);
-//        agenda.removerContato(c4);
-//        agenda.removerContato(c5);
-//
-//        Contato[] lote = {
-//                new Contato("João Pedro", "(41) 97777-2233", "joao.pedro@email.com"),
-//                new Contato("Beatriz", "(51) 93333-4455", "beatriz@email.com")
-//        };
-//
-//        agenda.adicionarContato(lote);
-//
-//        agenda.buscarContato("João Pedro");
-//        agenda.buscarContato("(21) 91234-5678");
-//        agenda.buscarContato("Ana ");
-//
-//        agenda.atualizarContato(c5);
-//        agenda.listar();
+        StringBuilder sb = new StringBuilder();
+        Scanner scanner = new Scanner(System.in);
+        Agenda agenda = new Agenda();
+
+        int i;
+        do {
+            sb.append("\"--- MENU DA AGENDA DE CONTATOS ---\"");
+            sb.append("\n1 - Adicionar Contato (Ordenado)").append("\n2 - Remover Contato");
+            sb.append("\n3 - Buscar Contato").append("\n4 - Atualizar Contato").append("\n5 - Sair").append("\nEscolha uma opcao: ");
+            i = scanner.nextInt();
+        }while (i != 5);
+
+        System.out.println(sb);
+        switch (i){
+            case 1: {
+                System.out.println("Digite o nome do contato:");
+                String nomeContato = scanner.nextLine();
+                System.out.println("Digite o telefone");
+                String telefone = scanner.nextLine();
+
+                Contato contato = new Contato(nomeContato, telefone);
+                agenda.adicionarContato(contato);
 
 
+                // Ou não
+                System.out.println("Contato "+ nomeContato +" adicionado com sucesso na letra 'A' (Indice 0)!");
+            }
+            case 2:{
+                System.out.println("Digite o nome do contato a remover:");
+                String nomeContato = scanner.nextLine();
 
+//                agenda.removerContato(); fazer um remover por nome
 
+                // Ou não
+                System.out.println("Contato "+ nomeContato + " removido com sucesso do Vetor 'A'!");
+            }
+            case 3: {
+                System.out.println("Digite o nome do contato a buscar:");
+                String nomeContato = scanner.nextLine();
+
+                agenda.buscarContato(nomeContato);
+
+                // Ou não
+                System.out.println("Contato encontrado no Vetor 'A':" );
+            }
+            case 4:{
+                System.out.println("Digite o nome do contato a atualizar:");
+                String nomeContato = scanner.nextLine();
+                System.out.println("Digite o novo telefone:");
+                String telefone = scanner.nextLine();
+
+//                agenda.atualizarContato(); fazer um atualizar por nome
+
+                // Ou não
+                System.out.println("Contato "+ nomeContato +" atualizado com sucesso!");
+            }
+        }
     }
 }
