@@ -43,7 +43,7 @@ public class Vetor <T>{
             System.out.println("Indice Inválido");
             return;
         }
-        for (int i = indice; i < tamanho; i++) {
+        for (int i = indice; i < tamanho - 1; i++) {
             elementos[i] = elementos[i+1];
         }
         elementos[tamanho-1] = null;
