@@ -24,6 +24,10 @@ public class Labirinto {
         private int linhaFinal = 8;
         private int colunaFinal = 14;
 
+        private Pilha<Coordenada> pilha;
+        private int linhaAtual;
+        private int colunaAtual;
+
 
 //    private char[][] mapa = {
 //            {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
@@ -58,6 +62,15 @@ public class Labirinto {
 //    private int linhaFinal = 21;
 //    private int colunaFinal = 49;
 
+
+    public Labirinto() {
+        this.pilha = new Pilha<>(100);
+        this.colunaAtual = colunaInicial;
+        this.linhaAtual = linhaInicial;
+
+        pilha.push(new Coordenada(linhaInicial, colunaInicial));
+    }
+
     public void imprimir() {
 
 
@@ -69,45 +82,48 @@ public class Labirinto {
         }
     }
 
+    public boolean caminhoPossivel() {
 
-
-
-
-
-    public static void main(String[] args) {
-        Labirinto labirinto = new Labirinto();
-        Pilha<Coordenada> pilha = new Pilha<>(100);
-        pilha.push(new Coordenada(labirinto.linhaInicial, labirinto.colunaInicial));
-        int linhaAtual = 1;
-        int colunaAtual = 0;
-
-        while (linhaAtual != labirinto.linhaFinal && colunaAtual != labirinto.colunaFinal){
-            if (labirinto.mapa[linhaAtual + 1][colunaAtual] == ' '){
-                // Pra baixo
-                linhaAtual += 1;
-                pilha.push(new Coordenada(linhaAtual, colunaAtual));
-            }else if (labirinto.mapa[linhaAtual][colunaAtual + 1] == ' '){
-                // Pra direita
-                colunaAtual += 1;
-                pilha.push(new Coordenada(linhaAtual, colunaAtual));
-            }else if (labirinto.mapa[linhaAtual -1][colunaAtual] == ' '){
-                // Pra cima
-                linhaAtual -= 1;
-                pilha.push(new Coordenada(linhaAtual, colunaAtual));
-            }else if (labirinto.mapa[linhaAtual][colunaAtual - 1] == ' '){
-                // Pra esquerda
-                colunaAtual -= 1;
-                pilha.push(new Coordenada(linhaAtual, colunaAtual));
-            }else{
-                // Beco sem saída
-                pilha.pop();
-            }
-
-
-            labirinto.imprimir();
+        System.out.println(colunaAtual);
+        if (mapa[linhaAtual][colunaAtual] == 'T'){
+            System.out.println("Achou");
+            return true;
         }
 
+        mapa[linhaAtual][colunaAtual] = '+';
 
+        if (mapa[linhaAtual + 1][colunaAtual] == ' ') {
+            // Pra baixo
+            linhaAtual += 1;
+            pilha.push(new Coordenada(linhaAtual, colunaAtual));
+            return false;
+        }
 
+        if (mapa[linhaAtual][colunaAtual + 1] == ' ') {
+            // Pra direita
+            colunaAtual += 1;
+            pilha.push(new Coordenada(linhaAtual, colunaAtual));
+            return false;
+        }
+
+        if (mapa[linhaAtual - 1][colunaAtual] == ' ') {
+            // Pra cima
+            linhaAtual -= 1;
+            pilha.push(new Coordenada(linhaAtual, colunaAtual));
+            return false;
+        }
+
+        if (mapa[linhaAtual][colunaAtual - 1] == ' ') {
+            // Pra esquerda
+            colunaAtual -= 1;
+            pilha.push(new Coordenada(linhaAtual, colunaAtual));
+            return false;
+        }
+
+        // Beco sem saída
+        Coordenada coordenadaAtual = pilha.pop();
+        linhaAtual = coordenadaAtual.getX();
+        colunaAtual = coordenadaAtual.getY();
+        return false;
     }
 }
