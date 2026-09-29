@@ -10,7 +10,7 @@ public class Fila <T extends Comparable>{
     }
 
     public void enfileirar (T elemento){
-        if (tamanho == elementos.length){
+        if (isCheia()){
             throw new RuntimeException("Fila cheia");
         }
 
@@ -18,8 +18,12 @@ public class Fila <T extends Comparable>{
         tamanho++;
     }
 
-    private boolean isEmpty(){
+    public boolean isEmpty(){
         return tamanho == 0;
+    }
+
+    public boolean isCheia(){
+        return tamanho == elementos.length;
     }
 
     public T desenfileirar(){
@@ -56,5 +60,9 @@ public class Fila <T extends Comparable>{
             System.out.println();
         }
 
+    }
+
+    public int getTamanho() {
+        return tamanho;
     }
 }
