@@ -30,8 +30,10 @@ public class Servidor {
             adicionar(novasReq);
 
             for (int i = 0; i < numProcessadores; i++) {
-                fila.desenfileirar();
-                totalReqAtendidas++;
+                if (!fila.isEmpty()){
+                    fila.desenfileirar();
+                    totalReqAtendidas++;
+                }
             }
         }
 
@@ -46,8 +48,8 @@ public class Servidor {
                 totalReqPerdidas++;
             }else {
                 fila.enfileirar("A");
-                totalReqGeradas++;
             }
+            totalReqGeradas++;
         }
 
     }
