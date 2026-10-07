@@ -52,5 +52,7 @@ public class FilaCircular <T extends Comparable<T>> {
         System.out.println();
     }
 
-
+    public T getInicio() {
+        return elementos[inicio];
+    }
 }

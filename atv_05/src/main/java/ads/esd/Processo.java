@@ -49,4 +49,8 @@ public class Processo implements Comparable<Processo> {
     public int compareTo(Processo o) {
         return 0;
     }
+
+    public void decrementarInstrucoes() {
+        instrucoesRestantes--;
+    }
 }
