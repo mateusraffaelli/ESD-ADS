@@ -25,7 +25,6 @@ public class Inventario {
     }
     public int remover(int indice) {
         if (indice < 0 || indice >= tamanho) throw new IndexOutOfBoundsException("indice invalido");
-        // Criar exceções
         int removido = dados[indice];
 
         for (int i = indice; i < tamanho; i++) {
